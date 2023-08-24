@@ -1,74 +1,59 @@
-MAIN=s21_matrix_oop.a
+NAME = s21_matrix.a
+CC = gcc
+AR = ar rcs
 
-CC=gcc
-CFLAGS=-Wall -Werror -Wextra
+RM = rm -f
+RMDIR = rm -rf
+MKDIR = mkdir -p
 
-TEST_DIR=./tests/
-OBJ_DIR=./objects/
-NON_GUI_OBJ_DIR=./objects/
-INCLUDE_DIR=./include/
-MAIN_DIR=./
+CPP_FLAGS = -Wall -Wextra -Werror -std=c++17
+TEST_LIBS = -lgtest -lstdc++ -pthread -lm
 
+INCLUDE_DIR = ./include
+SRC_DIR = ./
+OBJ_DIR = ./objects
+TEST_SRC_DIR = ./tests
+TEST_OBJ_DIR = ./tests/objects
+
+GTEST_LINK=$(shell pkg-config --libs --cflags gtest)
+
+SRC = $(wildcard $(SRC_DIR)/*.cpp)
+OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.cpp=.o)))
 INCLUDE = $(wildcard $(INCLUDE_DIR)/*.h)
+TEST_SRC = $(wildcard $(TEST_SRC_DIR)/*.cpp)
+TEST_OBJ = $(addprefix $(TEST_OBJ_DIR)/, $(notdir $(TEST_SRC:.cpp=.o)))
 
-PKG_CONFIG=$(shell which pkg-config)
-PKG_CONFIG_FLAGS=--libs --cflags
+all: $(NAME)
 
-DEBUG_FLAGS=-g
-FULL_VAL_LEAK_CHECK=--leak-check=full --show-leak-kinds=all --track-origins=yes --tool=memcheck --show-reachable=yes
-CREATE_VAL_LOGFILE=--log-file=valgrind.txt
-INTERACTIVE_DOCKER_MODE=-it
+$(NAME): $(OBJ)
+	$(AR) $@ $?
 
-RM=rm -f
-RM_DIR=rm -rf
-CLANG=clang-format -style=google
+run: $(NAME) test
+	./$(TEST_OBJ_DIR)/$(NAME)
 
-SRC=$(wildcard $(RENDER_DIR)*.c )
-OBJ=$(patsubst $(RENDER_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(INCLUDE)
+	$(MKDIR) $(@D)
+	$(CC) $(CPP_FLAGS) -I$(INCLUDE_DIR) -o $@ -c $<
 
-all: run
+test: $(TEST_OBJ) $(NAME)
+	$(CC) -g -o $@ $? $(TEST_LIBS)
+	./test
 
-$(MAIN): $(OBJ)
-	ar rcs $(OBJ_DIR)$(MAIN) $(OBJ)
+$(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp $(INCLUDE)
+	$(MKDIR) $(@D)
+	$(CC) $(CPP_FLAGS) -I$(INCLUDE_DIR) -o $@ -c $<
 
-$(OBJ_DIR)%.o: $(RENDER_DIR)%.c $(INCLUDE)
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -I$(INCLUDE_DIR) -c $< -o $@
-
-$(NON_GUI_OBJ_DIR)%.o: $(RENDER_DIR)%.c
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -c $< -o $@
-
-create_build_dir:
-	mkdir -p $(BUILD_DIR)
-
-run: $(MAIN)
-	$(APP_DIR)$(MAIN)
-
-rebuild: clean all
-
-test:
-	make -C $(VIEWER_DIR) all
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -I$(INCLUDE_DIR) $(TEST_DIR)*.c -L$(OBJ_DIR) -l$(MAIN) -o $(OBJ_DIR)$(MAIN)Test.o -lm $(CHECK_LINK)
-
-run_test: test
-	$(OBJ_DIR)$(MAIN)Test.o
-
-check_leaks: test
-	leaks -atExit -- ./$(OBJ_DIR)$(MAIN)Test.o
+$(REPORT): $(GCOV_OBJ) $(TEST_OBJ)
+	$(CC) $(GCOV_FLAGS) -o $(TEST) $? $(TEST_LIBS)
+	./$(TEST)
+	$(RM) stl_algobase.h.gcov move.h.gcov
+	gcov $(GCOV_OBJ_DIR)/*.gcno
+	mv *.gcov $(GCOV_OBJ_DIR)/
+	lcov -c -t "s21_matrix_oop" -o $(GCOV_DIR)/report.info -d $(GCOV_OBJ_DIR)
+	genhtml -o $(GCOV_DIR) $(GCOV_DIR)/report.info
 
 clean:
-	$(RM_DIR) $(OBJ_DIR)*
-	$(RM) $(OBJ_DIR)*
-
-format:
-	$(CLANG) -i $(MAIN_DIR)*.c $(GUI_DIR)*.c $(TEST_DIR)*.c
-
-docker_build:
-	docker build . -t s21_3d
-	docker container create -v $(PWD):/usr/src --name s21_3d_container s21_3d
-
-docker_start:
-	docker start -a s21_3d_container
-
-valgrind: test
-	valgrind $(FULL_VAL_LEAK_CHECK) $(OBJ_DIR)$(MAIN)Test.o
-
+	$(RMDIR) $(TEST_OBJ_DIR)
+	$(RM) $(TEST)
+	$(RMDIR) $(OBJ_DIR)
+	$(RM) $(NAME)
