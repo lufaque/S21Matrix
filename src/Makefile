@@ -42,6 +42,6 @@ $(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp $(INCLUDE)
 
 clean:
 	$(RMDIR) $(TEST_OBJ_DIR)
-	$(RM) $(TEST)
+	$(RM) ./test
 	$(RMDIR) $(OBJ_DIR)
 	$(RM) $(NAME)
