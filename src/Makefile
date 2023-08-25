@@ -10,7 +10,7 @@ CPP_FLAGS = -Wall -Wextra -Werror -std=c++17
 TEST_LIBS = -lgtest -lstdc++ -pthread -lm
 
 INCLUDE_DIR = ./include
-SRC_DIR = ./
+SRC_DIR = ./S21Matrix
 OBJ_DIR = ./objects
 TEST_SRC_DIR = ./tests
 TEST_OBJ_DIR = ./tests/objects
