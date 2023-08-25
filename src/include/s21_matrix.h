@@ -16,9 +16,9 @@ public:
 
     ~S21Matrix();
 
-    bool eq_matrix(const S21Matrix &o);
+    bool EqMatrix(const S21Matrix &other);
 
-    void printMatrix(void);
+    void print(void);
 };
 
 #endif // S21_MATRIX_H
