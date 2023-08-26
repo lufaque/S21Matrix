@@ -2,11 +2,11 @@
 
 void S21Matrix::print(void) {
     std::cout << "Matrix:" << std::endl;
-    std::cout << "Rows: " << _rows << std::endl;
-    std::cout << "Columns: " << _columns << std::endl;
+    std::cout << "Rows: " << rows_ << std::endl;
+    std::cout << "Columns: " << columns_ << std::endl;
 
-    for (int i = 0; i < _rows; i++) {
-        for (int k = 0; k < _columns; k++) {
+    for (int i = 0; i < rows_; i++) {
+        for (int k = 0; k < columns_; k++) {
             std::cout << _matrix[i][k] << " ";
         }
         std::cout << std::endl;

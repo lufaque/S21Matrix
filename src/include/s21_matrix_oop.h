@@ -7,8 +7,8 @@
 
 class S21Matrix {
 private:
-    int _rows = 0;
-    int _columns = 0;
+    int rows_ = 0;
+    int columns_ = 0;
     double **_matrix = NULL;
     void copy(const S21Matrix *other);
     void swap(S21Matrix &other) noexcept;

@@ -6,9 +6,9 @@
 class S21Matrix {
 private:
     // attributes
-    int _rows, _cols;                                           // rows and columns attributes
+    int rows_, _cols;                                           // rows and columns attributes
     double **_p;                                                // pointer to the memory where the matrix will be allocated
-    
+
 public:
     S21Matrix();                                                // default constructor
     S21Matrix(int rows, int cols);                              // parameterized constructor
