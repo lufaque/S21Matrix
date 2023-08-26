@@ -1,4 +1,4 @@
-#include "s21_matrix.h"
+#include "s21_matrix_oop.h"
 
 bool S21Matrix::EqMatrix(const S21Matrix &other) {
     if (other._rows != this->_rows) return false;

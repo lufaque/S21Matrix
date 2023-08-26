@@ -1,6 +1,13 @@
-NAME = s21_matrix.a
-CC = gcc
+OS := $(shell uname)
+
+MAIN = s21_matrix_oop.a
+CC := gcc
 AR = ar rcs
+
+# Change the compiler to g++ if the OS is Linux for compiling code in docker container
+ifeq ($(OS), Linux)
+    CC := g++
+endif
 
 RM = rm -f
 RMDIR = rm -rf
@@ -8,6 +15,10 @@ MKDIR = mkdir -p
 
 CPP_FLAGS = -Wall -Wextra -Werror -std=c++17
 TEST_LIBS = -lgtest -lstdc++ -pthread -lm
+
+DEBUG_FLAGS=-g
+FULL_VAL_LEAK_CHECK=--leak-check=full --show-leak-kinds=all --track-origins=yes --tool=memcheck --show-reachable=yes
+CREATE_VAL_LOGFILE=--log-file=valgrind.txt
 
 INCLUDE_DIR = ./include
 SRC_DIR = ./S21Matrix
@@ -21,19 +32,19 @@ INCLUDE = $(wildcard $(INCLUDE_DIR)/*.h)
 TEST_SRC = $(wildcard $(TEST_SRC_DIR)/*.cpp)
 TEST_OBJ = $(addprefix $(TEST_OBJ_DIR)/, $(notdir $(TEST_SRC:.cpp=.o)))
 
-all: $(NAME)
+all: $(MAIN)
 
-$(NAME): $(OBJ)
+$(MAIN): $(OBJ)
 	$(AR) $@ $?
 
-run: $(NAME) test
+run: $(MAIN) test
 	./test
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(INCLUDE)
 	$(MKDIR) $(@D)
-	$(CC) $(CPP_FLAGS) -I$(INCLUDE_DIR) -o $@ -c $<
+	$(CC) $(CPP_FLAGS) $(DEBUG_FLAGS) -I$(INCLUDE_DIR) -o $@ -c $<
 
-test: $(TEST_OBJ) $(NAME)
+test: $(TEST_OBJ) $(MAIN)
 	$(CC) -g -o $@ $? $(TEST_LIBS)
 
 $(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp $(INCLUDE)
@@ -44,4 +55,14 @@ clean:
 	$(RMDIR) $(TEST_OBJ_DIR)
 	$(RM) ./test
 	$(RMDIR) $(OBJ_DIR)
-	$(RM) $(NAME)
+	$(RM) $(MAIN)
+
+docker_build:
+	docker build . -t s21_matrix
+	docker container create -v $(PWD):/usr/src --name s21_matrix_container s21_matrix
+
+docker_start:
+	docker start -a s21_matrix_container
+
+valgrind: test
+	valgrind $(FULL_VAL_LEAK_CHECK) ./test

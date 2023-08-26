@@ -1,4 +1,4 @@
-#include "s21_matrix.h"
+#include "s21_matrix_oop.h"
 
 void S21Matrix::print(void) {
     std::cout << "Matrix:" << std::endl;
