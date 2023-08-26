@@ -29,7 +29,6 @@ TEST(S21Matrix, matrix3){
     ASSERT_EQ(matrix1.getColumns(), 8);
 }
 
-
 TEST(S21Matrix, matrix4){
     S21Matrix matrix(2, 8);
 
@@ -40,10 +39,31 @@ TEST(S21Matrix, matrix4){
     }
 }
 
-//TEST(S21Matrix, setRows) {
-//    S21Matrix matrix(8, 2);
-//
-//    matrix.setRows(3);
-//
-//    ASSERT_EQ(matrix.getRows(), 3);
-//}
+TEST(S21Matrix, setRows) {
+    S21Matrix matrix(81, 242);
+
+    matrix.setRows(3);
+    matrix.setColumns(31);
+
+    ASSERT_EQ(matrix.getRows(), 3);
+    ASSERT_EQ(matrix.getColumns(), 31);
+
+    matrix.setRows(100);
+    matrix.setColumns(90);
+
+    ASSERT_EQ(matrix.getRows(), 100);
+    ASSERT_EQ(matrix.getColumns(), 90);
+
+    try {
+        matrix.setRows(0);
+    } catch (std::invalid_argument &e) {
+        ASSERT_STREQ(e.what(), "Invalid rows count");
+    }
+
+    try {
+        matrix.setColumns(0);
+    } catch (std::invalid_argument &e) {
+        ASSERT_STREQ(e.what(), "Invalid columns count");
+    }
+}
+

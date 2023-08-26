@@ -10,11 +10,11 @@ private:
     int _rows = 0;
     int _columns = 0;
     double **_matrix = NULL;
-
-    void resizeMatrix(const int rows);
+    void copy(const S21Matrix *other);
+    void swap(S21Matrix &other) noexcept;
 
 public:
-    S21Matrix();
+    S21Matrix() noexcept;
 
     S21Matrix(const int rows, const int columns);
 
@@ -22,7 +22,7 @@ public:
 
     S21Matrix(S21Matrix &&other) noexcept;
 
-    ~S21Matrix();
+    ~S21Matrix() noexcept;
 
     bool EqMatrix(const S21Matrix &other);
 
@@ -32,7 +32,7 @@ public:
 
     void setRows(const int rows);
 
-//    void setColumns(const int columns);
+    void setColumns(const int columns);
 
     int getRows(void);
 

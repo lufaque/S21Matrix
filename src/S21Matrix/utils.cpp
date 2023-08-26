@@ -1,6 +1,6 @@
 #include "s21_matrix_oop.h"
 
-S21Matrix::S21Matrix() {
+S21Matrix::S21Matrix() noexcept {
     _rows = 3;
     _columns = 3;
     _matrix = new double *[_rows];
@@ -48,7 +48,7 @@ S21Matrix::S21Matrix(S21Matrix &&other) noexcept {
     other._matrix = nullptr;
 }
 
-S21Matrix::~S21Matrix() {
+S21Matrix::~S21Matrix() noexcept {
     if (_matrix) {
         for (int i = 0; i < _rows; i++) {
             delete[] _matrix[i];
@@ -57,28 +57,19 @@ S21Matrix::~S21Matrix() {
     }
 }
 
-int S21Matrix::getRows() {
-    return _rows;
-}
+void S21Matrix::copy(const S21Matrix *other) {
+    const int rows = std::min(_rows, other->_rows);
+    const int columns = std::min(_columns, other->_columns);
 
-int S21Matrix::getColumns() {
-    return _columns;
-}
-
-void S21Matrix::setRows(const int rows) {
-    if (rows <= 0) throw std::invalid_argument("Invalid rows count");
-    if (_rows != rows) resizeMatrix(rows);
-}
-
-void S21Matrix::resizeMatrix(const int rows) {
-    _matrix = (double **) realloc(_matrix, rows * sizeof(double *));
-
-    for (int i = _rows; i < rows; i++) {
-        _matrix[i] = new double[_columns];
-        for (int k = 0; k < _columns; k++) {
-            _matrix[i][k] = 0;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < columns; ++j) {
+            _matrix[i][j] = other->_matrix[i][j];
         }
     }
+}
 
-    _rows = rows;
+void S21Matrix::swap(S21Matrix &other) noexcept {
+    std::swap(_rows, other._rows);
+    std::swap(_columns, other._columns);
+    std::swap(_matrix, other._matrix);
 }
