@@ -5,7 +5,7 @@ void S21Matrix::SumMatrix(const S21Matrix &other) {
 
     for (int i = 0; i < rows_; i++) {
         for (int k = 0; k < columns_; k++) {
-            _matrix[i][k] += other._matrix[i][k];
+            matrix_[i][k] += other.matrix_[i][k];
         }
     }
 

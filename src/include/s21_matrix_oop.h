@@ -9,7 +9,7 @@ class S21Matrix {
 private:
     int rows_ = 0;
     int columns_ = 0;
-    double **_matrix = NULL;
+    double **matrix_ = NULL;
     void copy(const S21Matrix *other);
     void swap(S21Matrix &other) noexcept;
 
@@ -28,6 +28,8 @@ public:
 
     void SumMatrix(const S21Matrix &other);
 
+    void SubMatrix(const S21Matrix &other);
+
     void print(void);
 
     void setRows(const int rows);
@@ -37,6 +39,8 @@ public:
     int getRows(void);
 
     int getColumns(void);
+
+    double &operator()(const int row, const int column) ;
 };
 
 #endif // S21_MATRIX_OOP_H

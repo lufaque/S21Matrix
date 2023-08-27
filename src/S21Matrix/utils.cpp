@@ -3,12 +3,12 @@
 S21Matrix::S21Matrix() noexcept {
     rows_ = 3;
     columns_ = 3;
-    _matrix = new double *[rows_];
+    matrix_ = new double *[rows_];
 
     for (int i = 0; i < rows_; i++) {
-        _matrix[i] = new double[columns_];
+        matrix_[i] = new double[columns_];
         for (int j = 0; j < columns_; j++) {
-            _matrix[i][j] = 0;
+            matrix_[i][j] = 0;
         }
     }
 }
@@ -18,12 +18,12 @@ S21Matrix::S21Matrix(const int rows, const int columns) {
 
     rows_ = rows;
     columns_ = columns;
-    _matrix = new double *[rows_];
+    matrix_ = new double *[rows_];
 
     for (int i = 0; i < rows_; i++) {
-        _matrix[i] = new double[columns_];
+        matrix_[i] = new double[columns_];
         for (int k = 0; k < columns_; k++) {
-            _matrix[i][k] = 0;
+            matrix_[i][k] = 0;
         }
     }
 }
@@ -31,12 +31,12 @@ S21Matrix::S21Matrix(const int rows, const int columns) {
 S21Matrix::S21Matrix(const S21Matrix &other) noexcept {
     rows_ = other.rows_;
     columns_ = other.columns_;
-    _matrix = new double *[rows_];
+    matrix_ = new double *[rows_];
 
     for (int i = 0; i < rows_; i++) {
-        _matrix[i] = new double[columns_];
+        matrix_[i] = new double[columns_];
         for (int k = 0; k < columns_; k++) {
-            _matrix[i][k] = other._matrix[i][k];
+            matrix_[i][k] = other.matrix_[i][k];
         }
     }
 }
@@ -44,16 +44,16 @@ S21Matrix::S21Matrix(const S21Matrix &other) noexcept {
 S21Matrix::S21Matrix(S21Matrix &&other) noexcept {
     rows_ = other.rows_;
     columns_ = other.columns_;
-    _matrix = other._matrix;
-    other._matrix = nullptr;
+    matrix_ = other.matrix_;
+    other.matrix_ = nullptr;
 }
 
 S21Matrix::~S21Matrix() noexcept {
-    if (_matrix) {
+    if (matrix_) {
         for (int i = 0; i < rows_; i++) {
-            delete[] _matrix[i];
+            delete[] matrix_[i];
         }
-        delete[] _matrix;
+        delete[] matrix_;
     }
 }
 
@@ -63,7 +63,7 @@ void S21Matrix::copy(const S21Matrix *other) {
 
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
-            _matrix[i][j] = other->_matrix[i][j];
+            matrix_[i][j] = other->matrix_[i][j];
         }
     }
 }
@@ -71,5 +71,12 @@ void S21Matrix::copy(const S21Matrix *other) {
 void S21Matrix::swap(S21Matrix &other) noexcept {
     std::swap(rows_, other.rows_);
     std::swap(columns_, other.columns_);
-    std::swap(_matrix, other._matrix);
+    std::swap(matrix_, other.matrix_);
+}
+
+
+double& S21Matrix::operator()(int i, int j) {
+    if (i < 0 || i >= rows_) throw std::invalid_argument("Invalid row");
+    if (j < 0 || j >= columns_) throw std::invalid_argument("Invalid column");
+    return (matrix_[i][j]);
 }

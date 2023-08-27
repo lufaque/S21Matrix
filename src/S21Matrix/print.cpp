@@ -7,7 +7,7 @@ void S21Matrix::print(void) {
 
     for (int i = 0; i < rows_; i++) {
         for (int k = 0; k < columns_; k++) {
-            std::cout << _matrix[i][k] << " ";
+            std::cout << matrix_[i][k] << " ";
         }
         std::cout << std::endl;
     }

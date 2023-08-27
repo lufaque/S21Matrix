@@ -6,7 +6,7 @@ bool S21Matrix::EqMatrix(const S21Matrix &other) {
 
     for (int i = 0; i < this->rows_; i++) {
         for (int k = 0; k < this->columns_; k++) {
-            if (this->_matrix[i][k] != other._matrix[i][k]) return false;
+            if (this->matrix_[i][k] != other.matrix_[i][k]) return false;
         }
     }
 
