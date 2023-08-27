@@ -1,17 +1,16 @@
 #ifndef S21_MATRIX_OOP_H
 #define S21_MATRIX_OOP_H
 
-#include <stdlib.h>
-
 #include <iostream>
 
 class S21Matrix {
  private:
-  int rows_ = 0;
-  int columns_ = 0;
-  double **matrix_ = NULL;
-  void copy(const S21Matrix *other);
+  int rows_;
+  int columns_;
+  double **matrix_;
+  void copy(const S21Matrix *other);  // TODO add zeroing!
   void swap(S21Matrix &other) noexcept;
+  S21Matrix newMatrixByCrossedOut(int row, int column) const noexcept;
 
  public:
   S21Matrix() noexcept;
@@ -25,6 +24,8 @@ class S21Matrix {
   void MulNumber(const double value) noexcept;
   void MulMatrix(const S21Matrix &other);
   S21Matrix Transpose(void) const noexcept;
+  S21Matrix CalcComplements(void) const;
+  double Determinant(void) const;
   void print(void);
   void setRows(const int rows);
   void setColumns(const int columns);
