@@ -26,6 +26,7 @@ class S21Matrix {
   S21Matrix Transpose(void) const noexcept;
   S21Matrix CalcComplements(void) const;
   double Determinant(void) const;
+  S21Matrix InverseMatrix(void) const;
   void print(void);
   void setRows(const int rows);
   void setColumns(const int columns);
