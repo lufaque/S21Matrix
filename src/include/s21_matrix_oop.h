@@ -1,17 +1,12 @@
 #ifndef S21_MATRIX_OOP_H
 #define S21_MATRIX_OOP_H
 
+#include <cmath>
 #include <iostream>
 
-class S21Matrix {
- private:
-  int rows_;
-  int columns_;
-  double **matrix_;
-  void copy(const S21Matrix *other);  // TODO add zeroing!
-  void swap(S21Matrix &other) noexcept;
-  S21Matrix newMatrixByCrossedOut(int row, int column) const noexcept;
+#define EPSILON 0.0000001
 
+class S21Matrix {
  public:
   S21Matrix() noexcept;
   S21Matrix(const int rows, const int columns);
@@ -33,6 +28,19 @@ class S21Matrix {
   int getRows(void) const;
   int getColumns(void) const;
   double &operator()(const int row, const int column);
+  S21Matrix operator+(const S21Matrix &other) const;
+  S21Matrix operator-(const S21Matrix &other) const;
+  S21Matrix operator*(const S21Matrix &other) const;
+  S21Matrix operator*(const double value) const;
+
+ private:
+  int rows_;
+  int columns_;
+  double **matrix_;
+  void copy(const S21Matrix *other);  // TODO add zeroing!
+  void swap(S21Matrix &other) noexcept;
+  S21Matrix newMatrixByCrossedOut(int row, int column) const noexcept;
+  bool isEqual(double a, double b);
 };
 
 #endif  // S21_MATRIX_OOP_H
