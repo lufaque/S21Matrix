@@ -4,15 +4,17 @@ bool S21Matrix::EqMatrix(const S21Matrix &other) noexcept {
   if (other.rows_ != this->rows_) return false;
   if (other.columns_ != this->columns_) return false;
 
+  bool result = true;
+
   for (int i = 0; i < this->rows_; i++) {
     for (int k = 0; k < this->columns_; k++) {
       if (!isEqual(matrix_[i][k], other.matrix_[i][k])) {
-        return false;
+        result = false;
       }
     }
   }
 
-  return true;
+  return result;
 }
 
 bool S21Matrix::isEqual(double a, double b) {
