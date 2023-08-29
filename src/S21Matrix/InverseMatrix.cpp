@@ -11,7 +11,7 @@ S21Matrix S21Matrix::InverseMatrix(void) const {
     S21Matrix transposedComplements = complements.Transpose();
     determinant = 1 / determinant;
     transposedComplements.MulNumber(determinant);
-    
+
     return transposedComplements;
   } catch (const std::invalid_argument& e) {
     throw std::invalid_argument(e.what());
