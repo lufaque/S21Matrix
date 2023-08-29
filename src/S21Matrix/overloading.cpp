@@ -32,11 +32,8 @@ S21Matrix S21Matrix::operator*(const double value) const {
   return result;
 }
 
-S21Matrix S21Matrix::operator==(const S21Matrix& other) const {
-  S21Matrix result = S21Matrix(*this);
-
-  result.EqMatrix(other);
-
+bool S21Matrix::operator==(const S21Matrix& other) noexcept {
+  bool result = EqMatrix(other);
   return result;
 }
 
@@ -68,5 +65,5 @@ S21Matrix& S21Matrix::operator*=(const double value) {
 double& S21Matrix::operator()(int i, int j) {
   if (i < 0 || i >= rows_) throw std::invalid_argument("Invalid row");
   if (j < 0 || j >= columns_) throw std::invalid_argument("Invalid column");
-  return (matrix_[i][j]);
+  return matrix_[i][j];
 }

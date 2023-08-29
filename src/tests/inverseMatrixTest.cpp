@@ -26,3 +26,28 @@ TEST(S21Matrix, InverseMatrix) {
   EXPECT_EQ(matrix(2, 1), 0);
   EXPECT_EQ(matrix(2, 2), 1);
 }
+
+TEST(S21Matrix, inverseMatrixTest2) {
+  S21Matrix A(2, 5);
+
+  try {
+    S21Matrix result = A.InverseMatrix();
+  } catch (std::invalid_argument& e) {
+    EXPECT_STREQ(e.what(), "Matrix must be square");
+  }
+}
+
+TEST(S21Matrix, inverseMatrixTest3) {
+  S21Matrix A(2, 2);
+
+  A(0, 0) = 1;
+  A(0, 1) = 2;
+  A(1, 0) = 0;
+  A(1, 1) = 0;
+
+  try {
+    S21Matrix result = A.InverseMatrix();
+  } catch (std::invalid_argument& e) {
+    EXPECT_STREQ(e.what(), "Matrix is not invertible");
+  }
+}

@@ -13,7 +13,7 @@ class S21Matrix {
   S21Matrix(const S21Matrix &other) noexcept;
   S21Matrix(S21Matrix &&other) noexcept;
   ~S21Matrix() noexcept;
-  bool EqMatrix(const S21Matrix &other);
+  bool EqMatrix(const S21Matrix &other) noexcept;
   void SumMatrix(const S21Matrix &other);
   void SubMatrix(const S21Matrix &other);
   void MulNumber(const double value) noexcept;
@@ -32,7 +32,7 @@ class S21Matrix {
   S21Matrix operator-(const S21Matrix &other) const;
   S21Matrix operator*(const S21Matrix &other) const;
   S21Matrix operator*(const double value) const;
-  S21Matrix operator==(const S21Matrix &other) const;
+  bool operator==(const S21Matrix &other) noexcept;
   S21Matrix &operator=(S21Matrix &other) noexcept;
   S21Matrix &operator+=(const S21Matrix &other);
   S21Matrix &operator-=(const S21Matrix &other);
@@ -46,7 +46,7 @@ class S21Matrix {
   void copy(const S21Matrix *other);  // TODO add zeroing!
   void swap(S21Matrix &other) noexcept;
   S21Matrix newMatrixByCrossedOut(int row, int column) const noexcept;
-  bool isEqual(double a, double b);
+  bool isEqual(const double a, const double b);
 };
 
 #endif  // S21_MATRIX_OOP_H

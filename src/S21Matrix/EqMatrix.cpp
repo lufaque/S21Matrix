@@ -1,6 +1,6 @@
 #include "s21_matrix_oop.h"
 
-bool S21Matrix::EqMatrix(const S21Matrix &other) {
+bool S21Matrix::EqMatrix(const S21Matrix &other) noexcept {
   if (other.rows_ != this->rows_) return false;
   if (other.columns_ != this->columns_) return false;
 
