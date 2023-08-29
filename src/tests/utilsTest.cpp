@@ -66,3 +66,48 @@ TEST(S21Matrix, setRows) {
     ASSERT_STREQ(e.what(), "Invalid columns count");
   }
 }
+
+TEST(S21Matrix, setColumns) {
+  S21Matrix matrix;
+  matrix(0, 0) = 1;
+  matrix(0, 1) = 2;
+  matrix(0, 2) = 3;
+  matrix(1, 0) = 4;
+  matrix(1, 1) = 5;
+  matrix(1, 2) = 6;
+  matrix(2, 0) = 7;
+  matrix(2, 1) = 8;
+  matrix(2, 2) = 9;
+
+  matrix.setColumns(5);
+  matrix.setRows(5);
+
+  ASSERT_EQ(matrix.getRows(), 5);
+  ASSERT_EQ(matrix.getColumns(), 5);
+
+  EXPECT_NEAR(matrix(0, 0), 1, EPSILON);
+  EXPECT_NEAR(matrix(0, 1), 2, EPSILON);
+  EXPECT_NEAR(matrix(0, 2), 3, EPSILON);
+  EXPECT_NEAR(matrix(0, 3), 0, EPSILON);
+  EXPECT_NEAR(matrix(0, 4), 0, EPSILON);
+  EXPECT_NEAR(matrix(1, 0), 4, EPSILON);
+  EXPECT_NEAR(matrix(1, 1), 5, EPSILON);
+  EXPECT_NEAR(matrix(1, 2), 6, EPSILON);
+  EXPECT_NEAR(matrix(1, 3), 0, EPSILON);
+  EXPECT_NEAR(matrix(1, 4), 0, EPSILON);
+  EXPECT_NEAR(matrix(2, 0), 7, EPSILON);
+  EXPECT_NEAR(matrix(2, 1), 8, EPSILON);
+  EXPECT_NEAR(matrix(2, 2), 9, EPSILON);
+  EXPECT_NEAR(matrix(2, 3), 0, EPSILON);
+  EXPECT_NEAR(matrix(2, 4), 0, EPSILON);
+  EXPECT_NEAR(matrix(3, 0), 0, EPSILON);
+  EXPECT_NEAR(matrix(3, 1), 0, EPSILON);
+  EXPECT_NEAR(matrix(3, 2), 0, EPSILON);
+  EXPECT_NEAR(matrix(3, 3), 0, EPSILON);
+  EXPECT_NEAR(matrix(3, 4), 0, EPSILON);
+  EXPECT_NEAR(matrix(4, 0), 0, EPSILON);
+  EXPECT_NEAR(matrix(4, 1), 0, EPSILON);
+  EXPECT_NEAR(matrix(4, 2), 0, EPSILON);
+  EXPECT_NEAR(matrix(4, 3), 0, EPSILON);
+  EXPECT_NEAR(matrix(4, 4), 0, EPSILON);
+}

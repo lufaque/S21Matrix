@@ -56,7 +56,7 @@ S21Matrix::~S21Matrix() noexcept {
   }
 }
 
-void S21Matrix::copy(const S21Matrix *other) {
+void S21Matrix::copy(const S21Matrix *other) noexcept {
   const int rows = std::min(rows_, other->rows_);
   const int columns = std::min(columns_, other->columns_);
 

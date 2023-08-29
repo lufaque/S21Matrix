@@ -43,7 +43,7 @@ class S21Matrix {
   int rows_;
   int columns_;
   double **matrix_;
-  void copy(const S21Matrix *other);  // TODO add zeroing!
+  void copy(const S21Matrix *other) noexcept;
   void swap(S21Matrix &other) noexcept;
   S21Matrix newMatrixByCrossedOut(int row, int column) const noexcept;
   bool isEqual(const double a, const double b);
