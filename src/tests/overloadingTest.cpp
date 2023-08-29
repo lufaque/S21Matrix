@@ -86,3 +86,218 @@ TEST(S21Matrix, mul) {
   EXPECT_NEAR(B(2, 3), 0.00528, EPSILON);
   EXPECT_NEAR(B(2, 4), 0.00528, EPSILON);
 }
+
+TEST(S21Matrix, assignmentOperator) {
+  S21Matrix A(3, 3);
+  A(0, 0) = 1;
+  A(0, 1) = 2;
+  A(0, 2) = 3;
+  A(1, 0) = 4;
+  A(1, 1) = 5;
+  A(1, 2) = 6;
+
+  S21Matrix B(3, 3);
+  B(0, 0) = 7;
+  B(0, 1) = 8;
+  B(0, 2) = 9;
+  B(1, 0) = 10;
+  B(1, 1) = 11;
+  B(1, 2) = 12;
+
+  A = B;
+
+  EXPECT_EQ(A(0, 0), 7);
+  EXPECT_EQ(A(0, 1), 8);
+  EXPECT_EQ(A(0, 2), 9);
+  EXPECT_EQ(A(1, 0), 10);
+  EXPECT_EQ(A(1, 1), 11);
+  EXPECT_EQ(A(1, 2), 12);
+}
+
+TEST(S21Matrix, assignmentOperator2) {
+  S21Matrix A(3, 3);
+  A(0, 0) = 1;
+  A(0, 1) = 2;
+  A(0, 2) = 3;
+  A(1, 0) = 4;
+  A(1, 1) = 5;
+  A(1, 2) = 6;
+
+  S21Matrix B(2, 2);
+  B(0, 0) = 7;
+  B(0, 1) = 8;
+  B(1, 0) = 9;
+  B(1, 1) = 10;
+
+  try {
+    A = B;
+  } catch (std::invalid_argument &e) {
+    EXPECT_STREQ(e.what(), "Matrix dimensions must agree");
+  }
+}
+
+TEST(S21Matrix, assignmentPlusOperator) {
+  S21Matrix A(3, 3);
+  A(0, 0) = 1;
+  A(0, 1) = 2;
+  A(0, 2) = 3;
+  A(1, 0) = 4;
+  A(1, 1) = 5;
+  A(1, 2) = 6;
+
+  S21Matrix B(3, 3);
+  B(0, 0) = 7;
+  B(0, 1) = 8;
+  B(0, 2) = 9;
+  B(1, 0) = 10;
+  B(1, 1) = 11;
+  B(1, 2) = 12;
+
+  A += B;
+
+  EXPECT_EQ(A(0, 0), 8);
+  EXPECT_EQ(A(0, 1), 10);
+  EXPECT_EQ(A(0, 2), 12);
+  EXPECT_EQ(A(1, 0), 14);
+  EXPECT_EQ(A(1, 1), 16);
+  EXPECT_EQ(A(1, 2), 18);
+}
+
+TEST(S21Matrix, assignmentPlusOperator2) {
+  S21Matrix A(3, 3);
+  A(0, 0) = 1;
+  A(0, 1) = 2;
+  A(0, 2) = 3;
+  A(1, 0) = 4;
+  A(1, 1) = 5;
+  A(1, 2) = 6;
+
+  S21Matrix B(2, 2);
+  B(0, 0) = 7;
+  B(0, 1) = 8;
+  B(1, 0) = 9;
+  B(1, 1) = 10;
+
+  try {
+    A += B;
+  } catch (std::invalid_argument &e) {
+    EXPECT_STREQ(e.what(), "Invalid matrix size.");
+  }
+}
+
+TEST(S21Matrix, assignmentMinusOperator) {
+  S21Matrix A(3, 3);
+  A(0, 0) = 1;
+  A(0, 1) = 2;
+  A(0, 2) = 3;
+  A(1, 0) = 4;
+  A(1, 1) = 5;
+  A(1, 2) = 6;
+
+  S21Matrix B(3, 3);
+  B(0, 0) = 7;
+  B(0, 1) = 8;
+  B(0, 2) = 9;
+  B(1, 0) = 10;
+  B(1, 1) = 11;
+  B(1, 2) = 12;
+
+  A -= B;
+
+  EXPECT_EQ(A(0, 0), -6);
+  EXPECT_EQ(A(0, 1), -6);
+  EXPECT_EQ(A(0, 2), -6);
+  EXPECT_EQ(A(1, 0), -6);
+  EXPECT_EQ(A(1, 1), -6);
+  EXPECT_EQ(A(1, 2), -6);
+}
+
+TEST(S21Matrix, assignmentMinusOperator2) {
+  S21Matrix A(3, 3);
+  A(0, 0) = 1;
+  A(0, 1) = 2;
+  A(0, 2) = 3;
+  A(1, 0) = 4;
+  A(1, 1) = 5;
+  A(1, 2) = 6;
+
+  S21Matrix B(2, 2);
+  B(0, 0) = 7;
+  B(0, 1) = 8;
+  B(1, 0) = 9;
+  B(1, 1) = 10;
+
+  try {
+    A -= B;
+  } catch (std::invalid_argument &e) {
+    EXPECT_STREQ(e.what(), "Matrix dimensions must agree");
+  }
+}
+
+TEST(S21Matrix, assignmentMulOperator) {
+  S21Matrix A(3, 3);
+  A(0, 0) = 1;
+  A(0, 1) = 2;
+  A(0, 2) = 3;
+  A(1, 0) = 4;
+  A(1, 1) = 5;
+  A(1, 2) = 6;
+
+  S21Matrix B(3, 3);
+  B(0, 0) = 7;
+  B(0, 1) = 8;
+  B(0, 2) = 9;
+  B(1, 0) = 10;
+  B(1, 1) = 11;
+  B(1, 2) = 12;
+
+  A *= B;
+
+  EXPECT_EQ(A(0, 0), 27);
+  EXPECT_EQ(A(0, 1), 30);
+  EXPECT_EQ(A(0, 2), 33);
+  EXPECT_EQ(A(1, 0), 78);
+  EXPECT_EQ(A(1, 1), 87);
+  EXPECT_EQ(A(1, 2), 96);
+}
+
+TEST(S21Matrix, assignmentMulOperator2) {
+  S21Matrix A(3, 3);
+  A(0, 0) = 1;
+  A(0, 1) = 2;
+  A(0, 2) = 3;
+  A(1, 0) = 4;
+  A(1, 1) = 5;
+  A(1, 2) = 6;
+
+  S21Matrix B(2, 2);
+  B(0, 0) = 7;
+  B(0, 1) = 8;
+  B(1, 0) = 9;
+  B(1, 1) = 10;
+
+  try {
+    A *= B;
+  } catch (std::invalid_argument &e) {
+    EXPECT_STREQ(e.what(), "Invalid matrix dimensions");
+  }
+}
+
+TEST(S21Matrix, assignmentMulNumberOperator) {
+  S21Matrix A(3, 3);
+  A(0, 0) = 1;
+  A(0, 1) = 2;
+  A(0, 2) = 3;
+  A(1, 0) = 4;
+  A(1, 1) = 5;
+  A(1, 2) = 6;
+
+  A *= 2;
+
+  EXPECT_EQ(A(0, 0), 2);
+  EXPECT_EQ(A(0, 1), 4);
+  EXPECT_EQ(A(0, 2), 6);
+  EXPECT_EQ(A(1, 0), 8);
+  EXPECT_EQ(A(1, 1), 10);
+  EXPECT_EQ(A(1, 2), 12);
+}
