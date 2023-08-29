@@ -3,13 +3,13 @@
 S21Matrix S21Matrix::InverseMatrix(void) const {
   try {
     double determinant = Determinant();
-    if (determinant == 0) {
+    if (std::abs(determinant) < EPSILON) {
       throw std::invalid_argument("Matrix is not invertible");
     }
 
     S21Matrix complements = CalcComplements();
     S21Matrix transposedComplements = complements.Transpose();
-    determinant = 1 / determinant;
+    determinant = 1.0f / determinant;
     transposedComplements.MulNumber(determinant);
 
     return transposedComplements;
