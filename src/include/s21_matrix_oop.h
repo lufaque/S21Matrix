@@ -9,7 +9,7 @@
 class S21Matrix {
  public:
   S21Matrix() noexcept;
-  S21Matrix(const int rows, const int columns);
+  S21Matrix(int rows, int columns);
   S21Matrix(const S21Matrix &other) noexcept;
   S21Matrix(S21Matrix &&other) noexcept;
   ~S21Matrix() noexcept;

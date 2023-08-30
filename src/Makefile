@@ -5,9 +5,9 @@ CC := gcc
 AR = ar rcs
 
 # Change the compiler to g++ if the OS is Linux for compiling code in docker container
-ifeq ($(OS), Linux)
-    CC := g++
-endif
+#ifeq ($(OS), Linux)
+#    CC := g++
+#endif
 
 RM = rm -f
 RMDIR = rm -rf

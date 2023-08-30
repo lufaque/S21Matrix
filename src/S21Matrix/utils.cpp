@@ -13,8 +13,7 @@ S21Matrix::S21Matrix() noexcept {
   }
 }
 
-S21Matrix::S21Matrix(const int rows, const int columns)
-    : rows_(rows), columns_(columns) {
+S21Matrix::S21Matrix(int rows, int columns) : rows_(rows), columns_(columns) {
   if (rows <= 0 || columns <= 0)
     throw std::invalid_argument("Invalid matrix size");
   matrix_ = new double *[rows_];

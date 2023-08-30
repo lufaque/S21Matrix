@@ -61,7 +61,7 @@ TEST(S21Matrix, setRows) {
   }
 
   try {
-    matrix.setColumns(0);
+    matrix.setColumns(-10);
   } catch (std::invalid_argument &e) {
     ASSERT_STREQ(e.what(), "Invalid columns count");
   }
