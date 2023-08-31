@@ -85,7 +85,7 @@ bool S21Matrix::operator==(const S21Matrix& other) noexcept {
 }
 
 S21Matrix& S21Matrix::operator=(S21Matrix& other) noexcept {
-  swap(other);
+  Swap(other);
   return *this;
 }
 
@@ -115,25 +115,25 @@ double& S21Matrix::operator()(int i, int j) {
   return matrix_[i][j];
 }
 
-int S21Matrix::getRows() const { return rows_; }
+int S21Matrix::GetRows() const { return rows_; }
 
-int S21Matrix::getColumns() const { return columns_; }
+int S21Matrix::GetColumns() const { return columns_; }
 
-void S21Matrix::setRows(const int rows) {
+void S21Matrix::SetRows(const int rows) {
   if (rows <= 0) throw std::invalid_argument("Invalid rows count");
   S21Matrix tmp(rows, columns_);
-  tmp.copy(this);
-  swap(tmp);
+  tmp.Copy(this);
+  Swap(tmp);
 }
 
-void S21Matrix::setColumns(const int columns) {
+void S21Matrix::SetColumns(const int columns) {
   if (columns <= 0) throw std::invalid_argument("Invalid columns count");
   S21Matrix tmp(rows_, columns);
-  tmp.copy(this);
-  swap(tmp);
+  tmp.Copy(this);
+  Swap(tmp);
 }
 
-void S21Matrix::copy(const S21Matrix* other) noexcept {
+void S21Matrix::Copy(const S21Matrix* other) noexcept {
   const int rows = std::min(rows_, other->rows_);
   const int columns = std::min(columns_, other->columns_);
 
@@ -144,7 +144,7 @@ void S21Matrix::copy(const S21Matrix* other) noexcept {
   }
 }
 
-void S21Matrix::swap(S21Matrix& other) noexcept {
+void S21Matrix::Swap(S21Matrix& other) noexcept {
   std::swap(rows_, other.rows_);
   std::swap(columns_, other.columns_);
   std::swap(matrix_, other.matrix_);
@@ -158,7 +158,7 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) noexcept {
 
   for (int i = 0; i < this->rows_; i++) {
     for (int k = 0; k < this->columns_; k++) {
-      if (!isEqual(matrix_[i][k], other.matrix_[i][k])) {
+      if (!IsEqual(matrix_[i][k], other.matrix_[i][k])) {
         result = false;
       }
     }
@@ -167,7 +167,7 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) noexcept {
   return result;
 }
 
-bool S21Matrix::isEqual(double a, double b) {
+bool S21Matrix::IsEqual(double a, double b) {
   return std::fabs(a - b) < EPSILON;
 }
 
@@ -213,7 +213,7 @@ void S21Matrix::MulNumber(const double value) noexcept {
   }
 }
 
-S21Matrix S21Matrix::newMatrixByCrossedOut(int row, int column) const noexcept {
+S21Matrix S21Matrix::NewMatrixByCrossedOut(int row, int column) const noexcept {
   S21Matrix newMatrix(rows_ - 1, columns_ - 1);
 
   for (int i = 0; i < rows_; i++)
@@ -238,7 +238,7 @@ void S21Matrix::MulMatrix(const S21Matrix& other) {
     }
   }
 
-  swap(result);
+  Swap(result);
 }
 
 double S21Matrix::Determinant(void) const {
@@ -254,7 +254,7 @@ double S21Matrix::Determinant(void) const {
     for (int i = 0; i < columns_; i++) {
       const double sign = i % 2 == 0 ? 1 : -1;
       result +=
-          matrix_[0][i] * newMatrixByCrossedOut(0, i).Determinant() * sign;
+          matrix_[0][i] * NewMatrixByCrossedOut(0, i).Determinant() * sign;
     }
   }
 
@@ -269,7 +269,7 @@ S21Matrix S21Matrix::CalcComplements(void) const {
   for (int i = 0; i < rows_; i++) {
     for (int j = 0; j < columns_; j++) {
       const double sign = (i + j) % 2 == 0 ? 1 : -1;
-      result.matrix_[i][j] = newMatrixByCrossedOut(i, j).Determinant() * sign;
+      result.matrix_[i][j] = NewMatrixByCrossedOut(i, j).Determinant() * sign;
     }
   }
 
@@ -294,7 +294,7 @@ S21Matrix S21Matrix::InverseMatrix(void) const {
   }
 }
 
-void S21Matrix::print(void) {
+void S21Matrix::Print(void) {
   std::cout << "Matrix:" << std::endl;
   std::cout << "Rows: " << rows_ << std::endl;
   std::cout << "Columns: " << columns_ << std::endl;

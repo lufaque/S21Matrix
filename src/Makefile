@@ -4,11 +4,6 @@ MAIN = s21_matrix_oop.a
 CC := g++
 AR = ar rcs
 
-# Change the compiler to g++ if the OS is Linux for compiling code in docker container
-#ifeq ($(OS), Linux)
-#    CC := g++
-#endif
-
 RM = rm -f
 RMDIR = rm -rf
 MKDIR = mkdir -p
@@ -87,3 +82,7 @@ $(GCOV_OBJ_DIR)/%.o: $(MAIN_DIR)/%.cc $(INCLUDE)
 
 format:
 	clang-format -i $(SRC) $(TEST_SRC) $(INCLUDE)
+
+
+cpplint:
+	cpplint $(INCLUDE_DIR)/* $(MAIN_DIR)/* $(TEST_SRC_DIR)/*

@@ -1,5 +1,5 @@
-#ifndef S21_MATRIX_OOP_H
-#define S21_MATRIX_OOP_H
+#ifndef SRC_INCLUDE_S21_MATRIX_OOP_H_
+#define SRC_INCLUDE_S21_MATRIX_OOP_H_
 
 #include <cmath>
 #include <iostream>
@@ -13,6 +13,16 @@ class S21Matrix {
   S21Matrix(const S21Matrix &other) noexcept;
   S21Matrix(S21Matrix &&other) noexcept;
   ~S21Matrix() noexcept;
+  S21Matrix &operator=(S21Matrix &other) noexcept;
+  bool operator==(const S21Matrix &other) noexcept;
+  S21Matrix operator+(const S21Matrix &other) const;
+  S21Matrix operator-(const S21Matrix &other) const;
+  S21Matrix operator*(const S21Matrix &other) const;
+  S21Matrix operator*(const double value) const;
+  S21Matrix &operator+=(const S21Matrix &other);
+  S21Matrix &operator-=(const S21Matrix &other);
+  S21Matrix &operator*=(const S21Matrix &other);
+  S21Matrix &operator*=(const double value);
   bool EqMatrix(const S21Matrix &other) noexcept;
   void SumMatrix(const S21Matrix &other);
   void SubMatrix(const S21Matrix &other);
@@ -22,31 +32,21 @@ class S21Matrix {
   S21Matrix CalcComplements(void) const;
   double Determinant(void) const;
   S21Matrix InverseMatrix(void) const;
-  void print(void);
-  void setRows(const int rows);
-  void setColumns(const int columns);
-  int getRows(void) const;
-  int getColumns(void) const;
+  void Print(void);
+  void SetRows(const int rows);
+  void SetColumns(const int columns);
+  int GetRows(void) const;
+  int GetColumns(void) const;
   double &operator()(const int row, const int column);
-  S21Matrix operator+(const S21Matrix &other) const;
-  S21Matrix operator-(const S21Matrix &other) const;
-  S21Matrix operator*(const S21Matrix &other) const;
-  S21Matrix operator*(const double value) const;
-  bool operator==(const S21Matrix &other) noexcept;
-  S21Matrix &operator=(S21Matrix &other) noexcept;
-  S21Matrix &operator+=(const S21Matrix &other);
-  S21Matrix &operator-=(const S21Matrix &other);
-  S21Matrix &operator*=(const S21Matrix &other);
-  S21Matrix &operator*=(const double value);
 
  private:
   int rows_;
   int columns_;
   double **matrix_;
-  void copy(const S21Matrix *other) noexcept;
-  void swap(S21Matrix &other) noexcept;
-  S21Matrix newMatrixByCrossedOut(int row, int column) const noexcept;
-  bool isEqual(const double a, const double b);
+  void Copy(const S21Matrix *other) noexcept;
+  void Swap(S21Matrix &other) noexcept;
+  S21Matrix NewMatrixByCrossedOut(int row, int column) const noexcept;
+  bool IsEqual(const double a, const double b);
 };
 
-#endif  // S21_MATRIX_OOP_H
+#endif  // SRC_INCLUDE_S21_MATRIX_OOP_H_

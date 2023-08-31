@@ -176,8 +176,8 @@ TEST(S21Matrix, SubMatrix2) {
 
   A.SubMatrix(B);
 
-  for (int i = 0; i < A.getRows(); i++) {
-    for (int j = 0; j < A.getColumns(); j++) {
+  for (int i = 0; i < A.GetRows(); i++) {
+    for (int j = 0; j < A.GetColumns(); j++) {
       ASSERT_EQ(A(i, j), 0);
     }
   }
@@ -231,7 +231,7 @@ TEST(S21Matrix, operatorMinus) {
   EXPECT_EQ(C(1, 0), 4);
   EXPECT_EQ(C(1, 1), 4);
 
-  B.setRows(3);
+  B.SetRows(3);
 
   try {
     S21Matrix D = A - B;
@@ -548,10 +548,10 @@ TEST(S21Matrix, transpose) {
   EXPECT_EQ(B(1, 1), 4);
 }
 
-TEST(S21Matrix, getRows) {
+TEST(S21Matrix, GetRows) {
   S21Matrix matrix(7, 4);
-  ASSERT_EQ(matrix.getRows(), 7);
-  ASSERT_EQ(matrix.getColumns(), 4);
+  ASSERT_EQ(matrix.GetRows(), 7);
+  ASSERT_EQ(matrix.GetColumns(), 4);
 }
 
 TEST(S21Matrix, matrix) {
@@ -573,49 +573,49 @@ TEST(S21Matrix, matrix3) {
   S21Matrix matrix(2, 8);
   S21Matrix matrix1(std::move(matrix));
 
-  ASSERT_EQ(matrix1.getRows(), 2);
-  ASSERT_EQ(matrix1.getColumns(), 8);
+  ASSERT_EQ(matrix1.GetRows(), 2);
+  ASSERT_EQ(matrix1.GetColumns(), 8);
 }
 
 TEST(S21Matrix, matrix4) {
   S21Matrix matrix(2, 8);
 
   try {
-    matrix.setRows(0);
+    matrix.SetRows(0);
   } catch (std::invalid_argument &e) {
     ASSERT_STREQ(e.what(), "Invalid rows count");
   }
 }
 
-TEST(S21Matrix, setRows) {
+TEST(S21Matrix, SetRows) {
   S21Matrix matrix(81, 242);
 
-  matrix.setRows(3);
-  matrix.setColumns(31);
+  matrix.SetRows(3);
+  matrix.SetColumns(31);
 
-  ASSERT_EQ(matrix.getRows(), 3);
-  ASSERT_EQ(matrix.getColumns(), 31);
+  ASSERT_EQ(matrix.GetRows(), 3);
+  ASSERT_EQ(matrix.GetColumns(), 31);
 
-  matrix.setRows(100);
-  matrix.setColumns(90);
+  matrix.SetRows(100);
+  matrix.SetColumns(90);
 
-  ASSERT_EQ(matrix.getRows(), 100);
-  ASSERT_EQ(matrix.getColumns(), 90);
+  ASSERT_EQ(matrix.GetRows(), 100);
+  ASSERT_EQ(matrix.GetColumns(), 90);
 
   try {
-    matrix.setRows(0);
+    matrix.SetRows(0);
   } catch (std::invalid_argument &e) {
     ASSERT_STREQ(e.what(), "Invalid rows count");
   }
 
   try {
-    matrix.setColumns(-10);
+    matrix.SetColumns(-10);
   } catch (std::invalid_argument &e) {
     ASSERT_STREQ(e.what(), "Invalid columns count");
   }
 }
 
-TEST(S21Matrix, setColumns) {
+TEST(S21Matrix, SetColumns) {
   S21Matrix matrix;
   matrix(0, 0) = 1;
   matrix(0, 1) = 2;
@@ -627,11 +627,11 @@ TEST(S21Matrix, setColumns) {
   matrix(2, 1) = 8;
   matrix(2, 2) = 9;
 
-  matrix.setColumns(5);
-  matrix.setRows(5);
+  matrix.SetColumns(5);
+  matrix.SetRows(5);
 
-  ASSERT_EQ(matrix.getRows(), 5);
-  ASSERT_EQ(matrix.getColumns(), 5);
+  ASSERT_EQ(matrix.GetRows(), 5);
+  ASSERT_EQ(matrix.GetColumns(), 5);
 
   EXPECT_NEAR(matrix(0, 0), 1, EPSILON);
   EXPECT_NEAR(matrix(0, 1), 2, EPSILON);

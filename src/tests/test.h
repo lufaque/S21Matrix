@@ -1,14 +1,11 @@
-//
-// Created by tiffanie on 24/08/2023.
-//
-
-#ifndef S21MATRIX_TEST_H
-#define S21MATRIX_TEST_H
+#ifndef SRC_TESTS_TEST_H_
+#define SRC_TESTS_TEST_H_
 
 #include <gtest/gtest.h>
-#include <utility>
+
 #include <iostream>
+#include <utility>
+
 #include "s21_matrix_oop.h"
 
-
-#endif //S21MATRIX_TEST_H
+#endif  // SRC_TESTS_TEST_H_
