@@ -260,21 +260,21 @@ TEST(S21Matrix, mul) {
 
   S21Matrix B = A * 0.00528;
 
-  EXPECT_NEAR(B(0, 0), 0.00528, EPSILON);
-  EXPECT_NEAR(B(0, 1), 0.00528, EPSILON);
-  EXPECT_NEAR(B(0, 2), 0.08976, EPSILON);
-  EXPECT_NEAR(B(0, 3), 0.00528, EPSILON);
-  EXPECT_NEAR(B(0, 4), 0.05808, EPSILON);
-  EXPECT_NEAR(B(1, 0), 0.00662112, EPSILON);
-  EXPECT_NEAR(B(1, 1), 0.16752912, EPSILON);
-  EXPECT_NEAR(B(1, 2), 0.00528, EPSILON);
-  EXPECT_NEAR(B(1, 3), 0.00528, EPSILON);
-  EXPECT_NEAR(B(1, 4), 52.754064, EPSILON);
-  EXPECT_NEAR(B(2, 0), 0.00528, EPSILON);
-  EXPECT_NEAR(B(2, 1), 2.89344, EPSILON);
-  EXPECT_NEAR(B(2, 2), 2410.38521328, EPSILON);
-  EXPECT_NEAR(B(2, 3), 0.00528, EPSILON);
-  EXPECT_NEAR(B(2, 4), 0.00528, EPSILON);
+  EXPECT_NEAR(B(0, 0), 0.00528, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(0, 1), 0.00528, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(0, 2), 0.08976, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(0, 3), 0.00528, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(0, 4), 0.05808, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(1, 0), 0.00662112, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(1, 1), 0.16752912, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(1, 2), 0.00528, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(1, 3), 0.00528, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(1, 4), 52.754064, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(2, 0), 0.00528, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(2, 1), 2.89344, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(2, 2), 2410.38521328, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(2, 3), 0.00528, S21Matrix::Epsilon);
+  EXPECT_NEAR(B(2, 4), 0.00528, S21Matrix::Epsilon);
 }
 
 TEST(S21Matrix, assignmentOperator) {
@@ -633,31 +633,31 @@ TEST(S21Matrix, SetColumns) {
   ASSERT_EQ(matrix.GetRows(), 5);
   ASSERT_EQ(matrix.GetColumns(), 5);
 
-  EXPECT_NEAR(matrix(0, 0), 1, EPSILON);
-  EXPECT_NEAR(matrix(0, 1), 2, EPSILON);
-  EXPECT_NEAR(matrix(0, 2), 3, EPSILON);
-  EXPECT_NEAR(matrix(0, 3), 0, EPSILON);
-  EXPECT_NEAR(matrix(0, 4), 0, EPSILON);
-  EXPECT_NEAR(matrix(1, 0), 4, EPSILON);
-  EXPECT_NEAR(matrix(1, 1), 5, EPSILON);
-  EXPECT_NEAR(matrix(1, 2), 6, EPSILON);
-  EXPECT_NEAR(matrix(1, 3), 0, EPSILON);
-  EXPECT_NEAR(matrix(1, 4), 0, EPSILON);
-  EXPECT_NEAR(matrix(2, 0), 7, EPSILON);
-  EXPECT_NEAR(matrix(2, 1), 8, EPSILON);
-  EXPECT_NEAR(matrix(2, 2), 9, EPSILON);
-  EXPECT_NEAR(matrix(2, 3), 0, EPSILON);
-  EXPECT_NEAR(matrix(2, 4), 0, EPSILON);
-  EXPECT_NEAR(matrix(3, 0), 0, EPSILON);
-  EXPECT_NEAR(matrix(3, 1), 0, EPSILON);
-  EXPECT_NEAR(matrix(3, 2), 0, EPSILON);
-  EXPECT_NEAR(matrix(3, 3), 0, EPSILON);
-  EXPECT_NEAR(matrix(3, 4), 0, EPSILON);
-  EXPECT_NEAR(matrix(4, 0), 0, EPSILON);
-  EXPECT_NEAR(matrix(4, 1), 0, EPSILON);
-  EXPECT_NEAR(matrix(4, 2), 0, EPSILON);
-  EXPECT_NEAR(matrix(4, 3), 0, EPSILON);
-  EXPECT_NEAR(matrix(4, 4), 0, EPSILON);
+  EXPECT_NEAR(matrix(0, 0), 1, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(0, 1), 2, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(0, 2), 3, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(0, 3), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(0, 4), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(1, 0), 4, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(1, 1), 5, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(1, 2), 6, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(1, 3), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(1, 4), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(2, 0), 7, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(2, 1), 8, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(2, 2), 9, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(2, 3), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(2, 4), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(3, 0), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(3, 1), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(3, 2), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(3, 3), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(3, 4), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(4, 0), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(4, 1), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(4, 2), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(4, 3), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(4, 4), 0, S21Matrix::Epsilon);
 }
 
 TEST(S21Matrix, InverseMatrix) {
@@ -676,15 +676,15 @@ TEST(S21Matrix, InverseMatrix) {
 
   matrix.MulMatrix(invertedMatrix);
 
-  EXPECT_NEAR(matrix(0, 0), 1, EPSILON);
-  EXPECT_NEAR(matrix(0, 1), 0, EPSILON);
-  EXPECT_NEAR(matrix(0, 2), 0, EPSILON);
-  EXPECT_NEAR(matrix(1, 0), 0, EPSILON);
-  EXPECT_NEAR(matrix(1, 1), 1, EPSILON);
-  EXPECT_NEAR(matrix(1, 2), 0, EPSILON);
-  EXPECT_NEAR(matrix(2, 0), 0, EPSILON);
-  EXPECT_NEAR(matrix(2, 1), 0, EPSILON);
-  EXPECT_NEAR(matrix(2, 2), 1, EPSILON);
+  EXPECT_NEAR(matrix(0, 0), 1, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(0, 1), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(0, 2), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(1, 0), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(1, 1), 1, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(1, 2), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(2, 0), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(2, 1), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(matrix(2, 2), 1, S21Matrix::Epsilon);
 }
 
 TEST(S21Matrix, inverseMatrixTest2) {
@@ -744,29 +744,29 @@ TEST(S21Matrix, inverseMatrixTest4) {
 
   A.MulMatrix(inverseMatrix);
 
-  EXPECT_NEAR(A(0, 0), 1, EPSILON);
-  EXPECT_NEAR(A(0, 1), 0, EPSILON);
-  EXPECT_NEAR(A(0, 2), 0, EPSILON);
-  EXPECT_NEAR(A(0, 3), 0, EPSILON);
-  EXPECT_NEAR(A(0, 4), 0, EPSILON);
-  EXPECT_NEAR(A(1, 0), 0, EPSILON);
-  EXPECT_NEAR(A(1, 1), 1, EPSILON);
-  EXPECT_NEAR(A(1, 2), 0, EPSILON);
-  EXPECT_NEAR(A(1, 3), 0, EPSILON);
-  EXPECT_NEAR(A(1, 4), 0, EPSILON);
-  EXPECT_NEAR(A(2, 0), 0, EPSILON);
-  EXPECT_NEAR(A(2, 1), 0, EPSILON);
-  EXPECT_NEAR(A(2, 2), 1, EPSILON);
-  EXPECT_NEAR(A(2, 3), 0, EPSILON);
-  EXPECT_NEAR(A(2, 4), 0, EPSILON);
-  EXPECT_NEAR(A(3, 0), 0, EPSILON);
-  EXPECT_NEAR(A(3, 1), 0, EPSILON);
-  EXPECT_NEAR(A(3, 2), 0, EPSILON);
-  EXPECT_NEAR(A(3, 3), 1, EPSILON);
-  EXPECT_NEAR(A(3, 4), 0, EPSILON);
-  EXPECT_NEAR(A(4, 0), 0, EPSILON);
-  EXPECT_NEAR(A(4, 1), 0, EPSILON);
-  EXPECT_NEAR(A(4, 2), 0, EPSILON);
-  EXPECT_NEAR(A(4, 3), 0, EPSILON);
-  EXPECT_NEAR(A(4, 4), 1, EPSILON);
+  EXPECT_NEAR(A(0, 0), 1, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(0, 1), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(0, 2), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(0, 3), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(0, 4), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(1, 0), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(1, 1), 1, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(1, 2), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(1, 3), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(1, 4), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(2, 0), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(2, 1), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(2, 2), 1, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(2, 3), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(2, 4), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(3, 0), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(3, 1), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(3, 2), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(3, 3), 1, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(3, 4), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(4, 0), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(4, 1), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(4, 2), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(4, 3), 0, S21Matrix::Epsilon);
+  EXPECT_NEAR(A(4, 4), 1, S21Matrix::Epsilon);
 }

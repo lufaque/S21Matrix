@@ -1,6 +1,8 @@
 #include "s21_matrix_oop.h"
 
-S21Matrix::S21Matrix() noexcept {
+const double S21Matrix::Epsilon = 0.0000001;
+
+S21Matrix::S21Matrix() {
   rows_ = 3;
   columns_ = 3;
   matrix_ = new double*[rows_];
@@ -26,7 +28,7 @@ S21Matrix::S21Matrix(int rows, int columns) : rows_(rows), columns_(columns) {
   }
 }
 
-S21Matrix::S21Matrix(const S21Matrix& other) noexcept {
+S21Matrix::S21Matrix(const S21Matrix& other) {
   rows_ = other.rows_;
   columns_ = other.columns_;
   matrix_ = new double*[rows_];
@@ -39,14 +41,14 @@ S21Matrix::S21Matrix(const S21Matrix& other) noexcept {
   }
 }
 
-S21Matrix::S21Matrix(S21Matrix&& other) noexcept {
+S21Matrix::S21Matrix(S21Matrix&& other) {
   rows_ = other.rows_;
   columns_ = other.columns_;
   matrix_ = other.matrix_;
   other.matrix_ = nullptr;
 }
 
-S21Matrix::~S21Matrix() noexcept {
+S21Matrix::~S21Matrix() {
   if (matrix_) {
     for (int i = 0; i < rows_; i++) {
       delete[] matrix_[i];
@@ -79,7 +81,7 @@ S21Matrix S21Matrix::operator*(const double value) const {
   return result;
 }
 
-bool S21Matrix::operator==(const S21Matrix& other) noexcept {
+bool S21Matrix::operator==(const S21Matrix& other) const noexcept {
   bool result = EqMatrix(other);
   return result;
 }
@@ -150,14 +152,14 @@ void S21Matrix::Swap(S21Matrix& other) noexcept {
   std::swap(matrix_, other.matrix_);
 }
 
-bool S21Matrix::EqMatrix(const S21Matrix& other) noexcept {
-  if (other.rows_ != this->rows_) return false;
-  if (other.columns_ != this->columns_) return false;
+bool S21Matrix::EqMatrix(const S21Matrix& other) const noexcept {
+  if (other.rows_ != rows_) return false;
+  if (other.columns_ != columns_) return false;
 
   bool result = true;
 
-  for (int i = 0; i < this->rows_; i++) {
-    for (int k = 0; k < this->columns_; k++) {
+  for (int i = 0; i < rows_; i++) {
+    for (int k = 0; k < columns_; k++) {
       if (!IsEqual(matrix_[i][k], other.matrix_[i][k])) {
         result = false;
       }
@@ -167,8 +169,8 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) noexcept {
   return result;
 }
 
-bool S21Matrix::IsEqual(double a, double b) {
-  return std::fabs(a - b) < EPSILON;
+bool S21Matrix::IsEqual(double a, double b) const noexcept {
+  return std::fabs(a - b) < Epsilon;
 }
 
 void S21Matrix::SumMatrix(const S21Matrix& other) {
@@ -279,7 +281,7 @@ S21Matrix S21Matrix::CalcComplements(void) const {
 S21Matrix S21Matrix::InverseMatrix(void) const {
   try {
     double determinant = Determinant();
-    if (std::abs(determinant) < EPSILON) {
+    if (std::abs(determinant) < S21Matrix::Epsilon) {
       throw std::invalid_argument("Matrix is not invertible");
     }
 
