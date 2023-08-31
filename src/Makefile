@@ -1,7 +1,7 @@
 OS := $(shell uname)
 
 MAIN = s21_matrix_oop.a
-CC := gcc
+CC := g++
 AR = ar rcs
 
 # Change the compiler to g++ if the OS is Linux for compiling code in docker container
@@ -29,12 +29,12 @@ TEST_OBJ_DIR = ./tests/objects
 GCOV_DIR = ./gcov_report
 GCOV_OBJ_DIR = ./gcov_report/objects
 
-SRC = $(wildcard $(MAIN_DIR)/*.cpp)
-OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.cpp=.o)))
+SRC = $(wildcard $(MAIN_DIR)/*.cc)
+OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.cc=.o)))
 INCLUDE = $(wildcard $(INCLUDE_DIR)/*.h)
-TEST_SRC = $(wildcard $(TEST_SRC_DIR)/*.cpp)
-TEST_OBJ = $(addprefix $(TEST_OBJ_DIR)/, $(notdir $(TEST_SRC:.cpp=.o)))
-GCOV_OBJ = $(addprefix $(GCOV_OBJ_DIR)/, $(notdir $(SRC:.cpp=.o)))
+TEST_SRC = $(wildcard $(TEST_SRC_DIR)/*.cc)
+TEST_OBJ = $(addprefix $(TEST_OBJ_DIR)/, $(notdir $(TEST_SRC:.cc=.o)))
+GCOV_OBJ = $(addprefix $(GCOV_OBJ_DIR)/, $(notdir $(SRC:.cc=.o)))
 
 all: $(MAIN)
 
@@ -44,14 +44,14 @@ $(MAIN): $(OBJ)
 run: $(MAIN) test
 	./test
 
-$(OBJ_DIR)/%.o: $(MAIN_DIR)/%.cpp $(INCLUDE)
+$(OBJ_DIR)/%.o: $(MAIN_DIR)/%.cc $(INCLUDE)
 	$(MKDIR) $(@D)
 	$(CC) $(CPP_FLAGS) $(DEBUG_FLAGS) -I$(INCLUDE_DIR) -o $@ -c $<
 
 test: $(TEST_OBJ) $(MAIN)
 	$(CC) -g -o $@ $? $(TEST_LIBS)
 
-$(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp $(INCLUDE)
+$(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cc $(INCLUDE)
 	$(MKDIR) $(@D)
 	$(CC) $(CPP_FLAGS) -I$(INCLUDE_DIR) -o $@ -c $<
 
@@ -81,7 +81,7 @@ gcov_report: $(GCOV_OBJ) $(TEST_OBJ)
 	genhtml -o $(GCOV_DIR) $(GCOV_DIR)/report.info
 	open $(GCOV_DIR)/index.html
 
-$(GCOV_OBJ_DIR)/%.o: $(MAIN_DIR)/%.cpp $(INCLUDE)
+$(GCOV_OBJ_DIR)/%.o: $(MAIN_DIR)/%.cc $(INCLUDE)
 	$(MKDIR) $(@D)
 	$(CC) $(CPP_FLAGS) $(DEBUG_FLAGS) $(GCOV_FLAGS) -I$(INCLUDE_DIR) -o $@ -c $<
 
