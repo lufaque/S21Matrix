@@ -2,9 +2,7 @@
 
 const double S21Matrix::Epsilon = 0.0000001;
 
-S21Matrix::S21Matrix() {
-  rows_ = 3;
-  columns_ = 3;
+S21Matrix::S21Matrix() : rows_(3), columns_(3) {
   matrix_ = new double*[rows_];
 
   for (int i = 0; i < rows_; i++) {
@@ -57,6 +55,21 @@ S21Matrix::~S21Matrix() {
   }
 }
 
+S21Matrix& S21Matrix::operator=(const S21Matrix& other) noexcept {
+  Copy(other);
+  return *this;
+}
+
+S21Matrix& S21Matrix::operator=(S21Matrix&& other) noexcept {
+  Swap(other);
+  return *this;
+}
+
+bool S21Matrix::operator==(const S21Matrix& other) const noexcept {
+  bool result = EqMatrix(other);
+  return result;
+}
+
 S21Matrix S21Matrix::operator+(const S21Matrix& other) const {
   S21Matrix result = S21Matrix(*this);
   result.SumMatrix(other);
@@ -81,16 +94,6 @@ S21Matrix S21Matrix::operator*(const double value) const {
   return result;
 }
 
-bool S21Matrix::operator==(const S21Matrix& other) const noexcept {
-  bool result = EqMatrix(other);
-  return result;
-}
-
-S21Matrix& S21Matrix::operator=(S21Matrix& other) noexcept {
-  Swap(other);
-  return *this;
-}
-
 S21Matrix& S21Matrix::operator+=(const S21Matrix& other) {
   SumMatrix(other);
   return *this;
@@ -111,39 +114,41 @@ S21Matrix& S21Matrix::operator*=(const double value) {
   return *this;
 }
 
-double& S21Matrix::operator()(int i, int j) {
-  if (i < 0 || i >= rows_) throw std::invalid_argument("Invalid row");
-  if (j < 0 || j >= columns_) throw std::invalid_argument("Invalid column");
-  return matrix_[i][j];
+double& S21Matrix::operator()(int rows, int columns) {
+  if (rows < 0 || rows >= rows_) throw std::invalid_argument("Invalid row");
+  if (columns < 0 || columns >= columns_) {
+    throw std::invalid_argument("Invalid column");
+  }
+  return matrix_[rows][columns];
+}
+
+void S21Matrix::Copy(const S21Matrix& other) noexcept {
+  const int rows = std::min(rows_, other.rows_);
+  const int columns = std::min(columns_, other.columns_);
+
+  for (int i = 0; i < rows; ++i) {
+    for (int j = 0; j < columns; ++j) {
+      matrix_[i][j] = other.matrix_[i][j];
+    }
+  }
+}
+
+void S21Matrix::SetRows(const int rows) {
+  if (rows <= 0) throw std::invalid_argument("Invalid rows count");
+  S21Matrix tmp(rows, columns_);
+  tmp.Copy(*this);
+  Swap(tmp);
 }
 
 int S21Matrix::GetRows() const { return rows_; }
 
 int S21Matrix::GetColumns() const { return columns_; }
 
-void S21Matrix::SetRows(const int rows) {
-  if (rows <= 0) throw std::invalid_argument("Invalid rows count");
-  S21Matrix tmp(rows, columns_);
-  tmp.Copy(this);
-  Swap(tmp);
-}
-
 void S21Matrix::SetColumns(const int columns) {
   if (columns <= 0) throw std::invalid_argument("Invalid columns count");
   S21Matrix tmp(rows_, columns);
-  tmp.Copy(this);
+  tmp.Copy(*this);
   Swap(tmp);
-}
-
-void S21Matrix::Copy(const S21Matrix* other) noexcept {
-  const int rows = std::min(rows_, other->rows_);
-  const int columns = std::min(columns_, other->columns_);
-
-  for (int i = 0; i < rows; ++i) {
-    for (int j = 0; j < columns; ++j) {
-      matrix_[i][j] = other->matrix_[i][j];
-    }
-  }
 }
 
 void S21Matrix::Swap(S21Matrix& other) noexcept {

@@ -13,7 +13,8 @@ class S21Matrix {
 
   ~S21Matrix();
 
-  S21Matrix &operator=(S21Matrix &other) noexcept;
+  S21Matrix &operator=(const S21Matrix &other) noexcept;
+  S21Matrix &operator=(S21Matrix &&other) noexcept;
   bool operator==(const S21Matrix &other) const noexcept;
   S21Matrix operator+(const S21Matrix &other) const;
   S21Matrix operator-(const S21Matrix &other) const;
@@ -47,8 +48,8 @@ class S21Matrix {
   int rows_;
   int columns_;
   double **matrix_;
-  
-  void Copy(const S21Matrix *other) noexcept;
+
+  void Copy(const S21Matrix &other) noexcept;
   void Swap(S21Matrix &other) noexcept;
   S21Matrix NewMatrixByCrossedOut(int row, int column) const noexcept;
   bool IsEqual(const double a, const double b) const noexcept;

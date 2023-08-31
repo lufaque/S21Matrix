@@ -1,5 +1,70 @@
 #include "test.h"
 
+TEST(S21Matrix, CopyOperatorTest) {
+  S21Matrix A(3, 3);
+
+  A(0, 0) = 1;
+  A(0, 1) = 2;
+  A(0, 2) = 3;
+  A(1, 0) = 4;
+  A(1, 1) = 5;
+  A(1, 2) = 6;
+  A(2, 0) = 7;
+  A(2, 1) = 8;
+  A(2, 2) = 9;
+
+  S21Matrix B = A;
+
+  ASSERT_EQ(B(0, 0), 1);
+  ASSERT_EQ(B(0, 1), 2);
+  ASSERT_EQ(B(0, 2), 3);
+  ASSERT_EQ(B(1, 0), 4);
+  ASSERT_EQ(B(1, 1), 5);
+  ASSERT_EQ(B(1, 2), 6);
+  ASSERT_EQ(B(2, 0), 7);
+  ASSERT_EQ(B(2, 1), 8);
+  ASSERT_EQ(B(2, 2), 9);
+
+  ASSERT_EQ(A(0, 0), 1);
+  ASSERT_EQ(A(0, 1), 2);
+  ASSERT_EQ(A(0, 2), 3);
+  ASSERT_EQ(A(1, 0), 4);
+  ASSERT_EQ(A(1, 1), 5);
+  ASSERT_EQ(A(1, 2), 6);
+  ASSERT_EQ(A(2, 0), 7);
+  ASSERT_EQ(A(2, 1), 8);
+  ASSERT_EQ(A(2, 2), 9);
+}
+//
+// TEST(S21Matrix, MoveOperatorTest) {
+//  S21Matrix A(3, 3);
+//
+//  A(0, 0) = 1;
+//  A(0, 1) = 2;
+//  A(0, 2) = 3;
+//  A(1, 0) = 4;
+//  A(1, 1) = 5;
+//  A(1, 2) = 6;
+//  A(2, 0) = 7;
+//  A(2, 1) = 8;
+//  A(2, 2) = 9;
+//
+//  S21Matrix B = std::move(A);
+//
+//  ASSERT_EQ(B(0, 0), 1);
+//  ASSERT_EQ(B(0, 1), 2);
+//  ASSERT_EQ(B(0, 2), 3);
+//  ASSERT_EQ(B(1, 0), 4);
+//  ASSERT_EQ(B(1, 1), 5);
+//  ASSERT_EQ(B(1, 2), 6);
+//  ASSERT_EQ(B(2, 0), 7);
+//  ASSERT_EQ(B(2, 1), 8);
+//  ASSERT_EQ(B(2, 2), 9);
+//
+//  ASSERT_EQ(A.GetRows(), 0);
+//  ASSERT_EQ(A.GetColumns(), 0);
+//}
+
 TEST(eqTest, eqTest) {
   S21Matrix matrix(3, 6);
   S21Matrix matrix1;
