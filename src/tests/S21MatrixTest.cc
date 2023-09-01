@@ -60,7 +60,7 @@ TEST(S21Matrix, MoveOperatorTest) {
   A(2, 2) = 9;
 
   S21Matrix B;
-  
+
   B = S21Matrix(std::move(A));
 
   ASSERT_EQ(B(0, 0), 1);
