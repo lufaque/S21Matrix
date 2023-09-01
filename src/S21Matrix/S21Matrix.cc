@@ -39,11 +39,11 @@ S21Matrix::S21Matrix(const S21Matrix& other) {
   }
 }
 
-S21Matrix::S21Matrix(S21Matrix&& other) {
-  rows_ = other.rows_;
-  columns_ = other.columns_;
-  matrix_ = other.matrix_;
+S21Matrix::S21Matrix(S21Matrix&& other)
+    : rows_(other.rows_), columns_(other.columns_), matrix_(other.matrix_) {
   other.matrix_ = nullptr;
+  other.rows_ = 0;
+  other.columns_ = 0;
 }
 
 S21Matrix::~S21Matrix() {
@@ -55,12 +55,12 @@ S21Matrix::~S21Matrix() {
   }
 }
 
-S21Matrix& S21Matrix::operator=(const S21Matrix& other) noexcept {
+S21Matrix& S21Matrix::operator=(const S21Matrix& other) {
   Copy(other);
   return *this;
 }
 
-S21Matrix& S21Matrix::operator=(S21Matrix&& other) noexcept {
+S21Matrix& S21Matrix::operator=(S21Matrix&& other) {
   Swap(other);
   return *this;
 }
@@ -270,6 +270,7 @@ double S21Matrix::Determinant(void) const {
 
 S21Matrix S21Matrix::CalcComplements(void) const {
   if (columns_ != rows_) throw std::invalid_argument("Matrix must be square");
+  if (rows_ == 1) return *this;
 
   S21Matrix result(rows_, columns_);
 
@@ -298,18 +299,5 @@ S21Matrix S21Matrix::InverseMatrix(void) const {
     return transposedComplements;
   } catch (const std::invalid_argument& e) {
     throw std::invalid_argument(e.what());
-  }
-}
-
-void S21Matrix::Print(void) {
-  std::cout << "Matrix:" << std::endl;
-  std::cout << "Rows: " << rows_ << std::endl;
-  std::cout << "Columns: " << columns_ << std::endl;
-
-  for (int i = 0; i < rows_; i++) {
-    for (int k = 0; k < columns_; k++) {
-      std::cout << matrix_[i][k] << " ";
-    }
-    std::cout << std::endl;
   }
 }

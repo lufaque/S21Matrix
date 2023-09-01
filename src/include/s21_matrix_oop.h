@@ -13,8 +13,8 @@ class S21Matrix {
 
   ~S21Matrix();
 
-  S21Matrix &operator=(const S21Matrix &other) noexcept;
-  S21Matrix &operator=(S21Matrix &&other) noexcept;
+  S21Matrix &operator=(const S21Matrix &other);
+  S21Matrix &operator=(S21Matrix &&other);
   bool operator==(const S21Matrix &other) const noexcept;
   S21Matrix operator+(const S21Matrix &other) const;
   S21Matrix operator-(const S21Matrix &other) const;
@@ -40,7 +40,6 @@ class S21Matrix {
   void SetColumns(const int columns);
   int GetRows(void) const;
   int GetColumns(void) const;
-  void Print(void);
 
   static const double Epsilon;
 
