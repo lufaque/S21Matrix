@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_S21_MATRIX_OOP_H_
-#define SRC_INCLUDE_S21_MATRIX_OOP_H_
+#ifndef S21MATRIX_INCLUDE_S21_MATRIX_OOP_H_
+#define S21MATRIX_INCLUDE_S21_MATRIX_OOP_H_
 
 #include <cmath>
 #include <iostream>
@@ -31,7 +31,7 @@ class S21Matrix {
   void SubMatrix(const S21Matrix &other);
   void MulNumber(const double value) noexcept;
   void MulMatrix(const S21Matrix &other);
-  S21Matrix Transpose(void) const noexcept;
+  S21Matrix Transpose(void) const;
   S21Matrix CalcComplements(void) const;
   double Determinant(void) const;
   S21Matrix InverseMatrix(void) const;
@@ -54,4 +54,4 @@ class S21Matrix {
   bool IsEqual(const double a, const double b) const noexcept;
 };
 
-#endif  // SRC_INCLUDE_S21_MATRIX_OOP_H_
+#endif  // S21MATRIX_INCLUDE_S21_MATRIX_OOP_H_

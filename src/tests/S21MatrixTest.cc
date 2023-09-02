@@ -638,7 +638,7 @@ TEST(S21Matrix, assignmentMulMatrix) {
   EXPECT_EQ(C(1, 1), 154);
 }
 
-TEST(S21Matrix, transpose) {
+TEST(S21Matrix, transposeTest1) {
   S21Matrix A(2, 2);
   A(0, 0) = 1;
   A(0, 1) = 2;
@@ -651,6 +651,32 @@ TEST(S21Matrix, transpose) {
   EXPECT_EQ(B(0, 1), 3);
   EXPECT_EQ(B(1, 0), 2);
   EXPECT_EQ(B(1, 1), 4);
+}
+
+TEST(S21Matrix, transposeTest2) {
+  S21Matrix A(2, 4);
+  A(0, 0) = 1;
+  A(0, 1) = 2;
+  A(0, 2) = 3;
+  A(0, 3) = 4;
+  A(1, 0) = 5;
+  A(1, 1) = 6;
+  A(1, 2) = 7;
+  A(1, 3) = 8;
+
+  S21Matrix B = A.Transpose();
+
+  EXPECT_EQ(B(0, 0), 1);
+  EXPECT_EQ(B(0, 1), 5);
+  EXPECT_EQ(B(1, 0), 2);
+  EXPECT_EQ(B(1, 1), 6);
+  EXPECT_EQ(B(2, 0), 3);
+  EXPECT_EQ(B(2, 1), 7);
+  EXPECT_EQ(B(3, 0), 4);
+  EXPECT_EQ(B(3, 1), 8);
+
+  EXPECT_EQ(B.GetRows(), 4);
+  EXPECT_EQ(B.GetColumns(), 2);
 }
 
 TEST(S21Matrix, GetRows) {

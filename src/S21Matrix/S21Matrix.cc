@@ -189,8 +189,8 @@ void S21Matrix::SumMatrix(const S21Matrix& other) {
   }
 }
 
-S21Matrix S21Matrix::Transpose(void) const noexcept {
-  S21Matrix result(*this);
+S21Matrix S21Matrix::Transpose(void) const {
+  S21Matrix result(columns_, rows_);
 
   for (int i = 0; i < result.rows_; i++) {
     for (int j = 0; j < result.columns_; j++) {
