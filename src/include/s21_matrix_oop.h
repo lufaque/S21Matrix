@@ -48,9 +48,10 @@ class S21Matrix {
   int columns_;
   double **matrix_;
 
+  void CreateMatrix(void);
   void Copy(const S21Matrix &other) noexcept;
   void Swap(S21Matrix &other) noexcept;
-  S21Matrix NewMatrixByCrossedOut(int row, int column) const noexcept;
+  S21Matrix NewMatrixByCrossedOut(int row, int column) const;
   bool IsEqual(const double a, const double b) const noexcept;
 };
 

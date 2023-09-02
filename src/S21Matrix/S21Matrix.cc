@@ -2,41 +2,18 @@
 
 const double S21Matrix::Epsilon = 0.0000001;
 
-S21Matrix::S21Matrix() : rows_(3), columns_(3) {
-  matrix_ = new double*[rows_];
-
-  for (int i = 0; i < rows_; i++) {
-    matrix_[i] = new double[columns_];
-    for (int j = 0; j < columns_; j++) {
-      matrix_[i][j] = 0;
-    }
-  }
-}
+S21Matrix::S21Matrix() : rows_(3), columns_(3) { CreateMatrix(); }
 
 S21Matrix::S21Matrix(int rows, int columns) : rows_(rows), columns_(columns) {
   if (rows <= 0 || columns <= 0)
     throw std::invalid_argument("Invalid matrix size");
-  matrix_ = new double*[rows_];
-
-  for (int i = 0; i < rows_; i++) {
-    matrix_[i] = new double[columns_];
-    for (int k = 0; k < columns_; k++) {
-      matrix_[i][k] = 0;
-    }
-  }
+  CreateMatrix();
 }
 
-S21Matrix::S21Matrix(const S21Matrix& other) {
-  rows_ = other.rows_;
-  columns_ = other.columns_;
-  matrix_ = new double*[rows_];
-
-  for (int i = 0; i < rows_; i++) {
-    matrix_[i] = new double[columns_];
-    for (int k = 0; k < columns_; k++) {
-      matrix_[i][k] = other.matrix_[i][k];
-    }
-  }
+S21Matrix::S21Matrix(const S21Matrix& other)
+    : rows_(other.rows_), columns_(other.columns_) {
+  CreateMatrix();
+  Copy(other);
 }
 
 S21Matrix::S21Matrix(S21Matrix&& other)
@@ -66,8 +43,7 @@ S21Matrix& S21Matrix::operator=(S21Matrix&& other) {
 }
 
 bool S21Matrix::operator==(const S21Matrix& other) const noexcept {
-  bool result = EqMatrix(other);
-  return result;
+  return EqMatrix(other);
 }
 
 S21Matrix S21Matrix::operator+(const S21Matrix& other) const {
@@ -122,27 +98,12 @@ double& S21Matrix::operator()(int rows, int columns) {
   return matrix_[rows][columns];
 }
 
-void S21Matrix::Copy(const S21Matrix& other) noexcept {
-  const int rows = std::min(rows_, other.rows_);
-  const int columns = std::min(columns_, other.columns_);
-
-  for (int i = 0; i < rows; ++i) {
-    for (int j = 0; j < columns; ++j) {
-      matrix_[i][j] = other.matrix_[i][j];
-    }
-  }
-}
-
 void S21Matrix::SetRows(const int rows) {
   if (rows <= 0) throw std::invalid_argument("Invalid rows count");
   S21Matrix tmp(rows, columns_);
   tmp.Copy(*this);
   Swap(tmp);
 }
-
-int S21Matrix::GetRows() const { return rows_; }
-
-int S21Matrix::GetColumns() const { return columns_; }
 
 void S21Matrix::SetColumns(const int columns) {
   if (columns <= 0) throw std::invalid_argument("Invalid columns count");
@@ -151,11 +112,9 @@ void S21Matrix::SetColumns(const int columns) {
   Swap(tmp);
 }
 
-void S21Matrix::Swap(S21Matrix& other) noexcept {
-  std::swap(rows_, other.rows_);
-  std::swap(columns_, other.columns_);
-  std::swap(matrix_, other.matrix_);
-}
+int S21Matrix::GetRows() const { return rows_; }
+
+int S21Matrix::GetColumns() const { return columns_; }
 
 bool S21Matrix::EqMatrix(const S21Matrix& other) const noexcept {
   if (other.rows_ != rows_) return false;
@@ -172,10 +131,6 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) const noexcept {
   }
 
   return result;
-}
-
-bool S21Matrix::IsEqual(double a, double b) const noexcept {
-  return std::fabs(a - b) < Epsilon;
 }
 
 void S21Matrix::SumMatrix(const S21Matrix& other) {
@@ -220,7 +175,7 @@ void S21Matrix::MulNumber(const double value) noexcept {
   }
 }
 
-S21Matrix S21Matrix::NewMatrixByCrossedOut(int row, int column) const noexcept {
+S21Matrix S21Matrix::NewMatrixByCrossedOut(int row, int column) const {
   S21Matrix newMatrix(rows_ - 1, columns_ - 1);
 
   for (int i = 0; i < rows_; i++)
@@ -300,4 +255,36 @@ S21Matrix S21Matrix::InverseMatrix(void) const {
   } catch (const std::invalid_argument& e) {
     throw std::invalid_argument(e.what());
   }
+}
+
+void S21Matrix::CreateMatrix(void) {
+  matrix_ = new double*[rows_];
+
+  for (int i = 0; i < rows_; i++) {
+    matrix_[i] = new double[columns_];
+    for (int k = 0; k < columns_; k++) {
+      matrix_[i][k] = 0;
+    }
+  }
+}
+
+void S21Matrix::Copy(const S21Matrix& other) noexcept {
+  const int rows = std::min(rows_, other.rows_);
+  const int columns = std::min(columns_, other.columns_);
+
+  for (int i = 0; i < rows; ++i) {
+    for (int j = 0; j < columns; ++j) {
+      matrix_[i][j] = other.matrix_[i][j];
+    }
+  }
+}
+
+void S21Matrix::Swap(S21Matrix& other) noexcept {
+  std::swap(rows_, other.rows_);
+  std::swap(columns_, other.columns_);
+  std::swap(matrix_, other.matrix_);
+}
+
+bool S21Matrix::IsEqual(double a, double b) const noexcept {
+  return std::fabs(a - b) < Epsilon;
 }
