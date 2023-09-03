@@ -116,7 +116,7 @@ int S21Matrix::GetRows() const noexcept { return rows_; }
 
 int S21Matrix::GetColumns() const noexcept { return columns_; }
 
-bool S21Matrix::EqMatrix(const S21Matrix& other) const noexcept {
+bool S21Matrix::EqMatrix(const S21Matrix& other) const {
   if (other.rows_ != rows_) return false;
   if (other.columns_ != columns_) return false;
 
@@ -249,6 +249,7 @@ S21Matrix S21Matrix::InverseMatrix() const {
     S21Matrix complements = CalcComplements();
     S21Matrix transposedComplements = complements.Transpose();
     determinant = 1.0f / determinant;
+
     if (rows_ > 1) {
       transposedComplements.MulNumber(determinant);
     } else {
@@ -272,7 +273,7 @@ void S21Matrix::CreateMatrix() {
   }
 }
 
-void S21Matrix::Copy(const S21Matrix& other) noexcept {
+void S21Matrix::Copy(const S21Matrix& other) {
   const int rows = std::min(rows_, other.rows_);
   const int columns = std::min(columns_, other.columns_);
 
@@ -289,6 +290,6 @@ void S21Matrix::Swap(S21Matrix& other) {
   std::swap(matrix_, other.matrix_);
 }
 
-bool S21Matrix::IsEqual(double a, double b) const noexcept {
+bool S21Matrix::IsEqual(double a, double b) const {
   return std::fabs(a - b) < Epsilon;
 }
