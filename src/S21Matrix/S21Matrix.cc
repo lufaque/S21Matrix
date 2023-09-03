@@ -42,7 +42,7 @@ S21Matrix& S21Matrix::operator=(S21Matrix&& other) {
   return *this;
 }
 
-bool S21Matrix::operator==(const S21Matrix& other) const noexcept {
+bool S21Matrix::operator==(const S21Matrix& other) const {
   return EqMatrix(other);
 }
 

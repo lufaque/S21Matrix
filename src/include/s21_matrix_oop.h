@@ -15,7 +15,7 @@ class S21Matrix {
 
   S21Matrix &operator=(const S21Matrix &other);
   S21Matrix &operator=(S21Matrix &&other);
-  bool operator==(const S21Matrix &other) const noexcept;
+  bool operator==(const S21Matrix &other) const;
   S21Matrix operator+(const S21Matrix &other) const;
   S21Matrix operator-(const S21Matrix &other) const;
   S21Matrix operator*(const S21Matrix &other) const;
