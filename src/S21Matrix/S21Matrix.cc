@@ -16,7 +16,7 @@ S21Matrix::S21Matrix(const S21Matrix& other)
   Copy(other);
 }
 
-S21Matrix::S21Matrix(S21Matrix&& other)
+S21Matrix::S21Matrix(S21Matrix&& other) noexcept
     : rows_(other.rows_), columns_(other.columns_), matrix_(other.matrix_) {
   other.matrix_ = nullptr;
   other.rows_ = 0;
@@ -112,9 +112,9 @@ void S21Matrix::SetColumns(const int columns) {
   Swap(tmp);
 }
 
-int S21Matrix::GetRows() const { return rows_; }
+int S21Matrix::GetRows() const noexcept { return rows_; }
 
-int S21Matrix::GetColumns() const { return columns_; }
+int S21Matrix::GetColumns() const noexcept { return columns_; }
 
 bool S21Matrix::EqMatrix(const S21Matrix& other) const noexcept {
   if (other.rows_ != rows_) return false;
@@ -144,7 +144,7 @@ void S21Matrix::SumMatrix(const S21Matrix& other) {
   }
 }
 
-S21Matrix S21Matrix::Transpose(void) const {
+S21Matrix S21Matrix::Transpose() const {
   S21Matrix result(columns_, rows_);
 
   for (int i = 0; i < result.rows_; i++) {
@@ -203,7 +203,7 @@ void S21Matrix::MulMatrix(const S21Matrix& other) {
   Swap(result);
 }
 
-double S21Matrix::Determinant(void) const {
+double S21Matrix::Determinant() const {
   if (columns_ != rows_) throw std::invalid_argument("Matrix must be square");
 
   double result = 0;
@@ -223,7 +223,7 @@ double S21Matrix::Determinant(void) const {
   return result;
 }
 
-S21Matrix S21Matrix::CalcComplements(void) const {
+S21Matrix S21Matrix::CalcComplements() const {
   if (columns_ != rows_) throw std::invalid_argument("Matrix must be square");
   if (rows_ == 1) return *this;
 
@@ -239,7 +239,7 @@ S21Matrix S21Matrix::CalcComplements(void) const {
   return result;
 }
 
-S21Matrix S21Matrix::InverseMatrix(void) const {
+S21Matrix S21Matrix::InverseMatrix() const {
   try {
     double determinant = Determinant();
     if (std::abs(determinant) < S21Matrix::Epsilon) {
@@ -249,7 +249,11 @@ S21Matrix S21Matrix::InverseMatrix(void) const {
     S21Matrix complements = CalcComplements();
     S21Matrix transposedComplements = complements.Transpose();
     determinant = 1.0f / determinant;
-    transposedComplements.MulNumber(determinant);
+    if (rows_ > 1) {
+      transposedComplements.MulNumber(determinant);
+    } else {
+      matrix_[0][0] = determinant;
+    }
 
     return transposedComplements;
   } catch (const std::invalid_argument& e) {
@@ -257,7 +261,7 @@ S21Matrix S21Matrix::InverseMatrix(void) const {
   }
 }
 
-void S21Matrix::CreateMatrix(void) {
+void S21Matrix::CreateMatrix() {
   matrix_ = new double*[rows_];
 
   for (int i = 0; i < rows_; i++) {
@@ -279,7 +283,7 @@ void S21Matrix::Copy(const S21Matrix& other) noexcept {
   }
 }
 
-void S21Matrix::Swap(S21Matrix& other) noexcept {
+void S21Matrix::Swap(S21Matrix& other) {
   std::swap(rows_, other.rows_);
   std::swap(columns_, other.columns_);
   std::swap(matrix_, other.matrix_);

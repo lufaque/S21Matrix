@@ -9,7 +9,7 @@ class S21Matrix {
   S21Matrix();
   S21Matrix(int rows, int columns);
   S21Matrix(const S21Matrix &other);
-  S21Matrix(S21Matrix &&other);
+  S21Matrix(S21Matrix &&other) noexcept;
 
   ~S21Matrix();
 
@@ -31,15 +31,15 @@ class S21Matrix {
   void SubMatrix(const S21Matrix &other);
   void MulNumber(const double value) noexcept;
   void MulMatrix(const S21Matrix &other);
-  S21Matrix Transpose(void) const;
-  S21Matrix CalcComplements(void) const;
-  double Determinant(void) const;
-  S21Matrix InverseMatrix(void) const;
+  S21Matrix Transpose() const;
+  S21Matrix CalcComplements() const;
+  double Determinant() const;
+  S21Matrix InverseMatrix() const;
 
   void SetRows(const int rows);
   void SetColumns(const int columns);
-  int GetRows(void) const;
-  int GetColumns(void) const;
+  int GetRows() const noexcept;
+  int GetColumns() const noexcept;
 
   static const double Epsilon;
 
@@ -48,9 +48,9 @@ class S21Matrix {
   int columns_;
   double **matrix_;
 
-  void CreateMatrix(void);
+  void CreateMatrix();
   void Copy(const S21Matrix &other) noexcept;
-  void Swap(S21Matrix &other) noexcept;
+  void Swap(S21Matrix &other);
   S21Matrix NewMatrixByCrossedOut(int row, int column) const;
   bool IsEqual(const double a, const double b) const noexcept;
 };

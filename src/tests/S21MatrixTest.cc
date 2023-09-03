@@ -679,6 +679,22 @@ TEST(S21Matrix, transposeTest2) {
   EXPECT_EQ(B.GetColumns(), 2);
 }
 
+TEST(S21Matrix, transposeTest3) {
+  S21Matrix A(3, 1);
+
+  A(0, 0) = 1;
+  A(1, 0) = 2;
+  A(2, 0) = 3;
+
+  S21Matrix B = A.Transpose();
+
+  EXPECT_EQ(B(0, 0), 1);
+  EXPECT_EQ(B(0, 1), 2);
+  EXPECT_EQ(B(0, 2), 3);
+  EXPECT_EQ(B.GetRows(), 1);
+  EXPECT_EQ(B.GetColumns(), 3);
+}
+
 TEST(S21Matrix, GetRows) {
   S21Matrix matrix(7, 4);
   ASSERT_EQ(matrix.GetRows(), 7);
@@ -892,4 +908,23 @@ TEST(S21Matrix, inverseMatrixTest4) {
   EXPECT_NEAR(A(4, 2), 0, S21Matrix::Epsilon);
   EXPECT_NEAR(A(4, 3), 0, S21Matrix::Epsilon);
   EXPECT_NEAR(A(4, 4), 1, S21Matrix::Epsilon);
+}
+
+TEST(S21Matrix, inverseMatrixTest6) {
+  S21Matrix A(1, 1);
+  A(0, 0) = 5;
+
+  S21Matrix inverseMatrix = A.InverseMatrix();
+
+  A.MulMatrix(inverseMatrix);
+
+  EXPECT_NEAR(A(0, 0), 1, S21Matrix::Epsilon);
+
+  A(0, 0) = 30.52;
+
+  inverseMatrix = A.InverseMatrix();
+
+  A.MulMatrix(inverseMatrix);
+
+  EXPECT_NEAR(A(0, 0), 1, S21Matrix::Epsilon);
 }
