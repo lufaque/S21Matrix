@@ -253,7 +253,7 @@ S21Matrix S21Matrix::InverseMatrix() const {
     if (rows_ > 1) {
       transposedComplements.MulNumber(determinant);
     } else {
-      matrix_[0][0] = determinant;
+      transposedComplements.matrix_[0][0] = determinant;
     }
 
     return transposedComplements;
