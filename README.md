@@ -21,11 +21,11 @@ project provides a set of powerful features for creating, manipulating, and perf
 
 ## Getting Started
 
-To start using this library, simply include the `S21Matrix.hpp` header file in your C++ project. Here's a quick example
+To start using this library, simply include the `S21Matrix.h` header file in your C++ project. Here's a quick example
 to get you started:
 
 ```cpp
-#include "S21Matrix.hpp"
+#include "S21Matrix.h"
 
 int main() {
     // Create a 3x3 matrix
