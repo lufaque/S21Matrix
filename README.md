@@ -2,9 +2,9 @@
 
 ## Overview
 
-Welcome to S21Matrix, an object-oriented matrix library designed to simplify matrix operations in C++. Whether you're a
-student working on a project or a developer in need of a reliable matrix library, S21Matrix is here to help. This
-project provides a set of powerful features for creating, manipulating, and performing operations on matrices.
+Welcome to the S21Matrix project! This C++ library provides a class called `S21Matrix` for working with matrices,
+including basic matrix operations such as addition, subtraction, multiplication, and various matrix transformations. The
+library is designed to be easy to use and efficient for common matrix operations.
 
 ## Features
 
@@ -21,11 +21,12 @@ project provides a set of powerful features for creating, manipulating, and perf
 
 ## Getting Started
 
-To start using this library, simply include the `S21Matrix.h` header file in your C++ project. Here's a quick example
+To start using this library, simply include the `s21_matrix_oop.h` header file in your C++ project. Here's a quick
+example
 to get you started:
 
 ```cpp
-#include "S21Matrix.h"
+#include "s21_matrix_oop.h"
 
 int main() {
     // Create a 3x3 matrix
